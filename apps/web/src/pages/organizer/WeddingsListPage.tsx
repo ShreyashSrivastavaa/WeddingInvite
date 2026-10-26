@@ -122,69 +122,69 @@ export const WeddingsListPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 flex flex-col">
+    <div className="min-h-screen bg-[#faf5eb] flex flex-col selection:bg-[#cacab0] selection:text-[#484036]">
       <Header />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-10 pb-6 border-b border-[#666e72]/20">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+            <h1 className="text-3xl sm:text-4xl font-normal text-[#33302c] tracking-[-0.04em] leading-[1.03]">
               Wedding Projects
             </h1>
-            <p className="text-sm text-stone-600 mt-1">
-              Select a wedding to manage invitations, guest lists, and live attendance metrics.
+            <p className="text-sm text-[#484036] mt-2 leading-[1.35] tracking-[0.01em]">
+              Select a wedding atelier to curate invitations, guest lists, and live attendance metrics.
             </p>
           </div>
 
           <button
             onClick={() => setIsCreateOpen(true)}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-maroon-700 hover:bg-maroon-800 text-white font-medium text-sm shadow-sm transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-[4px] border border-[#484036] text-[#484036] hover:bg-[#484036] hover:text-[#faf5eb] font-normal text-xs uppercase tracking-[0.05em] transition-all shadow-none"
           >
-            <Plus size={18} />
+            <Plus size={16} />
             <span>New Wedding</span>
           </button>
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-48 rounded-2xl bg-white border border-cream-200 animate-pulse p-6"
+                className="h-56 rounded-[4px] bg-[#ecece4] border border-[#666e72]/20 animate-pulse p-7"
               />
             ))}
           </div>
         ) : error ? (
-          <div className="p-6 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-center">
+          <div className="p-7 rounded-[4px] bg-[#ecece4] border border-rose-300 text-rose-900 text-center text-sm">
             Failed to load weddings. Please refresh.
           </div>
         ) : data?.weddings.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-cream-200 p-12 text-center max-w-md mx-auto shadow-sm">
-            <div className="w-16 h-16 rounded-2xl bg-saffron-100 text-saffron-700 flex items-center justify-center mx-auto mb-4">
-              <Sparkles size={32} />
+          <div className="bg-[#ecece4] rounded-[4px] border border-[#666e72]/30 p-12 text-center max-w-lg mx-auto shadow-none">
+            <div className="w-14 h-14 rounded-[4px] bg-[#f2e9cf] text-[#484036] border border-[#cacab0] flex items-center justify-center mx-auto mb-4">
+              <Sparkles size={24} />
             </div>
-            <h3 className="font-serif font-semibold text-lg text-stone-900">No weddings yet</h3>
-            <p className="text-sm text-stone-600 mt-1 mb-6">
-              Create your first wedding project to start inviting guests and managing RSVPs.
+            <h3 className="font-normal text-xl text-[#33302c] tracking-[-0.03em]">No weddings yet</h3>
+            <p className="text-sm text-[#484036] mt-2 mb-6 leading-relaxed">
+              Create your first wedding workspace to start curating guest lists and tracking responses.
             </p>
             <button
               onClick={() => setIsCreateOpen(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-maroon-700 hover:bg-maroon-800 text-white font-medium text-sm transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-[4px] border border-[#484036] text-[#484036] hover:bg-[#484036] hover:text-[#faf5eb] font-normal text-xs uppercase tracking-[0.05em] transition-all"
             >
-              <Plus size={18} />
+              <Plus size={16} />
               <span>Create First Wedding</span>
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {data?.weddings.map((w) => (
               <div
                 key={w.id}
-                className="bg-white rounded-2xl border border-cream-200 hover:border-maroon-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
+                className="bg-[#ecece4] rounded-[4px] border border-[#666e72]/30 hover:border-[#484036] transition-all flex flex-col justify-between overflow-hidden group shadow-none"
               >
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-cream-100 text-maroon-800 border border-cream-200">
+                <div className="p-7">
+                  <div className="flex items-start justify-between gap-2 mb-4">
+                    <span className="text-xs font-normal px-3 py-1 rounded-[4px] bg-[#f2e9cf] text-[#484036] border border-[#cacab0] tracking-[0.02em]">
                       {w._count?.events || 0} Event{w._count?.events === 1 ? '' : 's'}
                     </span>
                     <button
@@ -192,32 +192,32 @@ export const WeddingsListPage: React.FC = () => {
                         e.stopPropagation();
                         setWeddingToDelete(w);
                       }}
-                      className="p-1.5 text-stone-300 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors"
+                      className="p-1.5 text-[#666e72] hover:text-red-700 rounded-[4px] hover:bg-[#faf5eb] transition-colors"
                       title="Delete wedding"
                       aria-label="Delete wedding"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={15} />
                     </button>
                   </div>
 
-                  <Link to={`/weddings/${w.id}`} className="block group-hover:text-maroon-800">
-                    <h3 className="text-xl font-serif font-bold text-stone-900 group-hover:text-maroon-800 transition-colors">
+                  <Link to={`/weddings/${w.id}`} className="block">
+                    <h3 className="text-2xl font-normal text-[#33302c] tracking-[-0.03em] leading-tight group-hover:text-[#484036] transition-colors">
                       {w.title}
                     </h3>
-                    <p className="text-sm text-stone-500 mt-1">
+                    <p className="text-sm text-[#484036]/75 mt-1.5 font-serif italic">
                       {w.partnerOneName} {w.partnerTwoName ? `& ${w.partnerTwoName}` : ''}
                     </p>
                   </Link>
 
-                  <div className="mt-5 pt-4 border-t border-cream-100 flex items-center justify-between text-xs text-stone-600">
+                  <div className="mt-6 pt-4 border-t border-[#666e72]/20 flex items-center justify-between text-xs text-[#666e72]">
                     <div className="flex items-center gap-1.5">
-                      <Calendar size={14} className="text-saffron-600" />
+                      <Calendar size={13} className="text-[#484036]" />
                       <span>
                         Deadline: {new Date(w.rsvpDeadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Users size={14} className="text-maroon-700" />
+                      <Users size={13} className="text-[#484036]" />
                       <span>{w._count?.households || 0} Households</span>
                     </div>
                   </div>
@@ -225,10 +225,10 @@ export const WeddingsListPage: React.FC = () => {
 
                 <Link
                   to={`/weddings/${w.id}`}
-                  className="bg-cream-50 px-6 py-3 border-t border-cream-200 flex items-center justify-between text-sm font-semibold text-maroon-800 group-hover:bg-maroon-50 transition-colors"
+                  className="bg-[#ecece4] px-7 py-3.5 border-t border-[#666e72]/20 flex items-center justify-between text-xs uppercase tracking-[0.05em] font-normal text-[#484036] group-hover:bg-[#cacab0]/25 transition-colors"
                 >
                   <span>Open Wedding Workspace</span>
-                  <ChevronRight size={16} />
+                  <ChevronRight size={15} />
                 </Link>
               </div>
             ))}
@@ -252,9 +252,9 @@ export const WeddingsListPage: React.FC = () => {
           </div>
         )}
 
-        <form onSubmit={handleCreateSubmit} className="space-y-4">
+        <form onSubmit={handleCreateSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-stone-700 mb-1">
+            <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
               Wedding Title *
             </label>
             <input
@@ -264,13 +264,13 @@ export const WeddingsListPage: React.FC = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Aarav & Ishita Wedding"
-              className="w-full px-3.5 py-2.5 border border-cream-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-maroon-700 sm:text-sm"
+              className="w-full px-3.5 py-2.5 border border-[#666e72]/40 rounded-[4px] bg-[#faf5eb] text-[#33302c] focus:outline-none focus:border-[#484036] sm:text-sm font-normal"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-1">
+              <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
                 Partner 1 Name *
               </label>
               <input
@@ -280,11 +280,11 @@ export const WeddingsListPage: React.FC = () => {
                 value={partnerOneName}
                 onChange={(e) => setPartnerOneName(e.target.value)}
                 placeholder="e.g. Aarav Sharma"
-                className="w-full px-3.5 py-2.5 border border-cream-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-maroon-700 sm:text-sm"
+                className="w-full px-3.5 py-2.5 border border-[#666e72]/40 rounded-[4px] bg-[#faf5eb] text-[#33302c] focus:outline-none focus:border-[#484036] sm:text-sm font-normal"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-1">
+              <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
                 Partner 2 Name (Optional)
               </label>
               <input
@@ -293,14 +293,14 @@ export const WeddingsListPage: React.FC = () => {
                 value={partnerTwoName}
                 onChange={(e) => setPartnerTwoName(e.target.value)}
                 placeholder="e.g. Ishita Kapoor"
-                className="w-full px-3.5 py-2.5 border border-cream-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-maroon-700 sm:text-sm"
+                className="w-full px-3.5 py-2.5 border border-[#666e72]/40 rounded-[4px] bg-[#faf5eb] text-[#33302c] focus:outline-none focus:border-[#484036] sm:text-sm font-normal"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-1">
+              <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
                 RSVP Deadline *
               </label>
               <input
@@ -309,11 +309,11 @@ export const WeddingsListPage: React.FC = () => {
                 required
                 value={rsvpDeadline}
                 onChange={(e) => setRsvpDeadline(e.target.value)}
-                className="w-full px-3.5 py-2.5 border border-cream-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-maroon-700 sm:text-sm"
+                className="w-full px-3.5 py-2.5 border border-[#666e72]/40 rounded-[4px] bg-[#faf5eb] text-[#33302c] focus:outline-none focus:border-[#484036] sm:text-sm font-normal"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-1">
+              <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
                 Catering Target (Optional)
               </label>
               <input
@@ -322,13 +322,13 @@ export const WeddingsListPage: React.FC = () => {
                 value={cateringTarget}
                 onChange={(e) => setCateringTarget(e.target.value ? parseInt(e.target.value, 10) : '')}
                 placeholder="e.g. 250"
-                className="w-full px-3.5 py-2.5 border border-cream-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-maroon-700 sm:text-sm"
+                className="w-full px-3.5 py-2.5 border border-[#666e72]/40 rounded-[4px] bg-[#faf5eb] text-[#33302c] focus:outline-none focus:border-[#484036] sm:text-sm font-normal"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-700 mb-1.5">
+            <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
               Enabled Dietary Preferences
             </label>
             <div className="flex flex-wrap gap-2">
@@ -339,10 +339,10 @@ export const WeddingsListPage: React.FC = () => {
                     key={diet}
                     type="button"
                     onClick={() => toggleDietary(diet)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                    className={`px-3 py-1.5 rounded-[4px] text-xs font-normal border transition-colors ${
                       isSelected
-                        ? 'bg-maroon-50 border-maroon-700 text-maroon-900'
-                        : 'bg-white border-cream-300 text-stone-600 hover:bg-cream-50'
+                        ? 'bg-[#484036] border-[#484036] text-[#faf5eb]'
+                        : 'bg-[#faf5eb] border-[#666e72]/30 text-[#484036] hover:bg-[#ecece4]'
                     }`}
                   >
                     {DIETARY_LABELS[diet]}
@@ -353,7 +353,7 @@ export const WeddingsListPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-700 mb-1.5">
+            <label className="block text-xs font-normal uppercase tracking-[0.05em] text-[#484036] mb-1.5">
               Invitation Color Palette / Theme
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -364,29 +364,29 @@ export const WeddingsListPage: React.FC = () => {
                     key={t.id}
                     type="button"
                     onClick={() => setSelectedTheme(t.id)}
-                    className={`flex items-center gap-3 p-2.5 rounded-xl border text-left transition-all ${
+                    className={`flex items-center gap-3 p-3 rounded-[4px] border text-left transition-all ${
                       isSelected
-                        ? 'border-maroon-700 bg-maroon-50/50 ring-2 ring-maroon-700/20 shadow-sm'
-                        : 'border-cream-300 bg-white hover:bg-cream-50'
+                        ? 'border-[#484036] bg-[#cacab0]/30 ring-1 ring-[#484036]'
+                        : 'border-[#666e72]/30 bg-[#ecece4] hover:border-[#666e72]'
                     }`}
                   >
                     <div className="flex -space-x-1 shrink-0">
                       <span
-                        className="w-5 h-5 rounded-full border border-white shadow-xs"
+                        className="w-4 h-4 rounded-full border border-[#faf5eb]"
                         style={{ backgroundColor: t.primary }}
                       />
                       <span
-                        className="w-5 h-5 rounded-full border border-white shadow-xs"
+                        className="w-4 h-4 rounded-full border border-[#faf5eb]"
                         style={{ backgroundColor: t.secondary }}
                       />
                       <span
-                        className="w-5 h-5 rounded-full border border-white shadow-xs"
+                        className="w-4 h-4 rounded-full border border-[#faf5eb]"
                         style={{ backgroundColor: t.accent }}
                       />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold text-stone-900 truncate">{t.name}</p>
-                      <p className="text-[10px] text-stone-500 truncate">{t.description}</p>
+                      <p className="text-xs font-normal text-[#33302c] truncate">{t.name}</p>
+                      <p className="text-[10px] text-[#666e72] truncate">{t.description}</p>
                     </div>
                   </button>
                 );
@@ -394,21 +394,21 @@ export const WeddingsListPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-4 flex justify-end gap-3 border-t border-cream-200">
+          <div className="pt-4 flex justify-end gap-3 border-t border-[#666e72]/20">
             <button
               type="button"
               onClick={() => {
                 setIsCreateOpen(false);
                 resetForm();
               }}
-              className="px-4 py-2 border border-cream-300 rounded-xl text-sm font-medium text-stone-700 hover:bg-cream-100"
+              className="px-5 py-2.5 border border-[#666e72]/40 rounded-[4px] text-xs uppercase tracking-[0.05em] font-normal text-[#484036] hover:bg-[#ecece4]"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={createMutation.isPending}
-              className="px-5 py-2 rounded-xl bg-maroon-700 hover:bg-maroon-800 text-white font-medium text-sm transition-colors disabled:opacity-50"
+              className="px-6 py-2.5 rounded-[4px] bg-[#484036] hover:bg-[#33302c] text-[#faf5eb] font-normal text-xs uppercase tracking-[0.05em] transition-colors disabled:opacity-50"
             >
               {createMutation.isPending ? 'Creating...' : 'Create Wedding'}
             </button>
@@ -429,8 +429,8 @@ export const WeddingsListPage: React.FC = () => {
       >
         {weddingToDelete && (
           <div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm mb-4">
-              <AlertTriangle size={20} className="shrink-0" />
+            <div className="flex items-center gap-3 p-3 rounded-[4px] bg-[#f2e9cf] border border-[#cacab0] text-[#484036] text-xs mb-4">
+              <AlertTriangle size={18} className="shrink-0 text-red-700" />
               <span>
                 Warning: This will permanently delete all events, guests, invitations, RSVPs, and logs for{' '}
                 <strong>{weddingToDelete.title}</strong>.
@@ -438,13 +438,13 @@ export const WeddingsListPage: React.FC = () => {
             </div>
 
             {deleteError && (
-              <p className="text-xs text-rose-600 font-semibold mb-3">{deleteError}</p>
+              <p className="text-xs text-red-700 font-normal mb-3">{deleteError}</p>
             )}
 
-            <p className="text-sm text-stone-700 mb-2">
+            <p className="text-xs text-[#484036] mb-2 uppercase tracking-[0.04em]">
               To confirm deletion, please type the exact title below:
             </p>
-            <p className="text-xs font-mono bg-cream-100 p-2 rounded-lg border border-cream-200 select-all mb-3 text-stone-900">
+            <p className="text-xs font-mono bg-[#ecece4] p-2.5 rounded-[4px] border border-[#666e72]/30 select-all mb-3 text-[#33302c]">
               {weddingToDelete.title}
             </p>
 
@@ -453,7 +453,7 @@ export const WeddingsListPage: React.FC = () => {
               value={typedTitleConfirm}
               onChange={(e) => setTypedTitleConfirm(e.target.value)}
               placeholder="Type title here"
-              className="w-full px-3.5 py-2 border border-cream-300 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-rose-600 sm:text-sm mb-5"
+              className="w-full px-3.5 py-2.5 border border-[#666e72]/40 rounded-[4px] bg-[#faf5eb] text-[#33302c] focus:outline-none focus:border-red-700 sm:text-sm mb-5 font-normal"
             />
 
             <div className="flex justify-end gap-3">
@@ -463,7 +463,7 @@ export const WeddingsListPage: React.FC = () => {
                   setWeddingToDelete(null);
                   setTypedTitleConfirm('');
                 }}
-                className="px-4 py-2 border border-cream-300 rounded-xl text-sm font-medium text-stone-700 hover:bg-cream-100"
+                className="px-5 py-2.5 border border-[#666e72]/40 rounded-[4px] text-xs uppercase tracking-[0.05em] font-normal text-[#484036] hover:bg-[#ecece4]"
               >
                 Cancel
               </button>
@@ -476,7 +476,7 @@ export const WeddingsListPage: React.FC = () => {
                     confirmTitle: typedTitleConfirm,
                   })
                 }
-                className="px-5 py-2 rounded-xl bg-rose-700 hover:bg-rose-800 text-white font-medium text-sm transition-colors disabled:opacity-50"
+                className="px-6 py-2.5 rounded-[4px] bg-red-800 hover:bg-red-900 text-[#faf5eb] font-normal text-xs uppercase tracking-[0.05em] transition-colors disabled:opacity-50"
               >
                 {deleteMutation.isPending ? 'Deleting...' : 'Permanently Delete'}
               </button>

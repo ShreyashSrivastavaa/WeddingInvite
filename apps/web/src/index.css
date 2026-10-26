@@ -22,14 +22,14 @@
 
   body {
     min-height: 100vh;
-    color: #292524;
-    background-color: #faf8f5;
+    color: #484036;
+    background-color: #faf5eb;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   /* Accessible focus visible outlines */
   :focus-visible {
-    outline: 2px solid #881a36;
+    outline: 1px solid #484036;
     outline-offset: 2px;
   }
 }
