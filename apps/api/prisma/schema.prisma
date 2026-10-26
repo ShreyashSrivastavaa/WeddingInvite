@@ -1,0 +1,283 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Category {
+  FAMILY
+  FRIEND
+  COLLEAGUE
+  VIP
+  OTHER
+}
+
+enum Side {
+  BRIDE
+  GROOM
+}
+
+enum InvitationStatus {
+  ACTIVE
+  REVOKED
+}
+
+enum RsvpStatus {
+  ATTENDING
+  NOT_ATTENDING
+}
+
+enum RsvpSource {
+  GUEST_LINK
+  ORGANIZER_ENTRY
+}
+
+enum OptOutSource {
+  GUEST
+  ORGANIZER
+}
+
+enum Dietary {
+  VEGETARIAN
+  NON_VEGETARIAN
+  JAIN
+  VEGAN
+  EGGETARIAN
+  NO_PREFERENCE
+}
+
+enum ArrivalWindow {
+  ON_TIME
+  WITHIN_1_HOUR_AFTER
+  ONE_TO_TWO_HOURS_AFTER
+  MORE_THAN_TWO_HOURS_AFTER
+  NOT_SURE
+}
+
+enum MessageKind {
+  INVITATION
+  REMINDER
+}
+
+enum MessageChannel {
+  WHATSAPP_CLICK_TO_CHAT
+  WHATSAPP_CLOUD_API
+  OTHER
+}
+
+enum MessageStatus {
+  PREPARED
+  MARKED_SENT
+  SENT_BY_API
+  DELIVERED
+  READ
+  FAILED
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  passwordHash String
+  name         String
+  businessName String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  sessions     Session[]
+  weddings     Wedding[]
+  messageLogs  MessageLog[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([tokenHash])
+}
+
+model Wedding {
+  id                        String       @id @default(cuid())
+  ownerId                   String
+  owner                     User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  title                     String
+  partnerOneName            String
+  partnerTwoName            String?
+  invitationMessage         String?
+  rsvpDeadline              DateTime
+  timezone                  String       @default("Asia/Kolkata")
+  dietaryOptions            Dietary[]
+  theme                     String       @default("ROYAL_IVORY_MAROON")
+  coverImageUrl             String?
+  cateringTarget            Int?
+  allowChangesAfterDeadline Boolean      @default(true)
+  templateInvitation        String?
+  templateGentleReminder    String?
+  templateFinalReminder     String?
+  createdAt                 DateTime     @default(now())
+  updatedAt                 DateTime     @updatedAt
+  events                    Event[]
+  households                Household[]
+  messageLogs               MessageLog[]
+
+  @@index([ownerId])
+}
+
+model Event {
+  id             String           @id @default(cuid())
+  weddingId      String
+  wedding        Wedding          @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  name           String
+  startsAt       DateTime
+  endsAt         DateTime?
+  venueName      String
+  venueAddress   String
+  mapsUrl        String?
+  description    String?
+  cateringTarget Int?
+  sortOrder      Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  households     HouseholdEvent[]
+  rsvpResponses  RsvpResponse[]
+  rsvpRevisions  RsvpRevision[]
+  messageLogs    MessageLog[]
+
+  @@index([weddingId, startsAt])
+}
+
+model Household {
+  id             String           @id @default(cuid())
+  weddingId      String
+  wedding        Wedding          @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  displayName    String
+  phoneE164      String
+  email          String?
+  category       Category         @default(FAMILY)
+  side           Side?
+  notes          String?
+  memberNames    String[]         @default([])
+  invitedCount   Int              @default(1)
+  doNotContact   Boolean          @default(false)
+  optOutAt       DateTime?
+  optOutSource   OptOutSource?
+  followUpFlag   Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  events         HouseholdEvent[]
+  invitation     Invitation?
+  rsvpResponses  RsvpResponse[]
+  rsvpRevisions  RsvpRevision[]
+  messageLogs    MessageLog[]
+
+  @@index([weddingId, phoneE164])
+  @@index([weddingId, displayName])
+}
+
+model HouseholdEvent {
+  householdId  String
+  household    Household      @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  eventId      String
+  event        Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  invitedCount Int
+  rsvpResponse RsvpResponse?
+
+  @@id([householdId, eventId])
+}
+
+model Invitation {
+  id           String           @id @default(cuid())
+  householdId  String           @unique
+  household    Household        @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  token        String           @unique
+  status       InvitationStatus @default(ACTIVE)
+  expiresAt    DateTime?
+  viewCount    Int              @default(0)
+  firstViewedAt DateTime?
+  lastViewedAt  DateTime?
+  revokedAt    DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([token])
+}
+
+model RsvpResponse {
+  id                  String          @id @default(cuid())
+  householdId         String
+  household           Household       @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  eventId             String
+  event               Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  householdEvent      HouseholdEvent  @relation(fields: [householdId, eventId], references: [householdId, eventId], onDelete: Cascade)
+  status              RsvpStatus
+  arrivalWindow       ArrivalWindow?
+  message             String?
+  extraSeatsRequested Int?
+  source              RsvpSource      @default(GUEST_LINK)
+  version             Int             @default(1)
+  respondedAt         DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  attendees           Attendee[]
+
+  @@unique([householdId, eventId])
+  @@index([eventId, status])
+}
+
+model Attendee {
+  id             String       @id @default(cuid())
+  rsvpResponseId String
+  rsvpResponse   RsvpResponse @relation(fields: [rsvpResponseId], references: [id], onDelete: Cascade)
+  position       Int
+  name           String?
+  dietary        Dietary      @default(NO_PREFERENCE)
+  dietaryNote    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([rsvpResponseId])
+}
+
+model RsvpRevision {
+  id             String     @id @default(cuid())
+  householdId    String
+  household      Household  @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  eventId        String
+  event          Event      @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  status         RsvpStatus
+  confirmedCount Int
+  dietarySnapshot Json
+  source         RsvpSource
+  createdAt      DateTime   @default(now())
+
+  @@index([eventId, createdAt])
+  @@index([householdId])
+}
+
+model MessageLog {
+  id                String         @id @default(cuid())
+  weddingId         String
+  wedding           Wedding        @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  householdId       String
+  household         Household      @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  eventId           String?
+  event             Event?         @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  kind              MessageKind
+  channel           MessageChannel @default(WHATSAPP_CLICK_TO_CHAT)
+  status            MessageStatus  @default(PREPARED)
+  templateKey       String
+  bodySnapshot      String
+  preparedAt        DateTime       @default(now())
+  markedSentAt      DateTime?
+  providerMessageId String?
+  createdByUserId   String
+  createdByUser     User           @relation(fields: [createdByUserId], references: [id], onDelete: Cascade)
+  createdAt         DateTime       @default(now())
+
+  @@index([weddingId, householdId])
+  @@index([householdId, status])
+}
