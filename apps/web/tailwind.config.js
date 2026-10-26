@@ -53,6 +53,17 @@ export default {
           800: '#144645',
           900: '#143B3A',
         },
+        forner: {
+          roast: '#484036',
+          bone: '#faf5eb',
+          linen: '#ecece4',
+          sandstone: '#cacab0',
+          pebble: '#d5d5c4',
+          manilla: '#f2e9cf',
+          slate: '#666e72',
+          charcoal: '#33302c',
+          obsidian: '#212529',
+        },
       },
       fontFamily: {
         serif: ['Fraunces', 'Playfair Display', 'Georgia', 'serif'],

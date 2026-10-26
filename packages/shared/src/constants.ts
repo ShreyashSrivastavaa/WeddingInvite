@@ -14,7 +14,7 @@ export const SESSION_DURATION_MS = SESSION_DURATION_DAYS * 24 * 60 * 60 * 1000;
 
 export const TOKEN_BYTES = 24;
 
-export type ThemeKey = 'ROYAL_IVORY_MAROON' | 'GOLDEN_SAFFRON' | 'PEACOCK_TEAL' | 'ROSE_PALACE';
+export type ThemeKey = 'ROYAL_IVORY_MAROON' | 'GOLDEN_SAFFRON' | 'PEACOCK_TEAL' | 'ROSE_PALACE' | 'FORNER_EARTHEN';
 
 export interface ThemePreset {
   id: ThemeKey;
@@ -83,6 +83,20 @@ export const THEME_PRESETS: Record<ThemeKey, ThemePreset> = {
     badgeBg: '#fff1f2',
     badgeText: '#9f1239',
   },
+  FORNER_EARTHEN: {
+    id: 'FORNER_EARTHEN',
+    name: 'Forner Warm Earthen',
+    description: 'Ceramics atelier aesthetic: Bone canvas, roast coffee ink, linen cards, and sandstone accents.',
+    primary: '#484036',
+    secondary: '#cacab0',
+    accent: '#666e72',
+    background: '#faf5eb',
+    cardBackground: '#ecece4',
+    textColor: '#484036',
+    badgeBg: '#f2e9cf',
+    badgeText: '#33302c',
+  },
 };
 
 export const DEFAULT_THEME: ThemeKey = 'ROYAL_IVORY_MAROON';
+

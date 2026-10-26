@@ -7,6 +7,17 @@
     --color-maroon: 136 26 54;
     --color-saffron: 232 146 5;
     --color-cream: 250 248 245;
+
+    /* Forner — Warm Earthen Atelier Design Tokens */
+    --color-roast-ink: #484036;
+    --color-bone-canvas: #faf5eb;
+    --color-linen-surface: #ecece4;
+    --color-sandstone: #cacab0;
+    --color-pebble: #d5d5c4;
+    --color-manilla-cream: #f2e9cf;
+    --color-slate-border: #666e72;
+    --color-charcoal-depth: #33302c;
+    --color-obsidian: #212529;
   }
 
   body {
