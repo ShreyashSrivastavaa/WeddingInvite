@@ -15,7 +15,9 @@ import {
   BellOff,
   Sparkles,
   Edit3,
+  Box,
 } from 'lucide-react';
+import { Royal3DInvitationCard } from '../../components/3d/Royal3DInvitationCard';
 import {
   ArrivalWindow,
   Dietary,
@@ -127,6 +129,7 @@ export const PublicRsvpPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [lang, setLang] = useState<'en' | 'hi'>('en');
   const [isEditing, setIsEditing] = useState(false);
+  const [show3DUnboxing, setShow3DUnboxing] = useState(true);
   const [formEvents, setFormEvents] = useState<Record<string, FormEventState>>({});
   const [optOutSuccess, setOptOutSuccess] = useState(false);
   const [staleError, setStaleError] = useState<string | null>(null);
@@ -391,22 +394,41 @@ export const PublicRsvpPage: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen font-sans pb-16 transition-colors"
+      className="min-h-screen font-sans pb-16 transition-colors selection:bg-[#cacab0] selection:text-[#484036]"
       style={{ backgroundColor: themeConfig.background }}
     >
-      {/* Language Toggle floating bar */}
-      <div className="max-w-xl mx-auto px-4 pt-3 flex justify-end">
+      {/* Top Floating Control Bar */}
+      <div className="max-w-xl mx-auto px-4 pt-3 flex items-center justify-between">
+        <button
+          onClick={() => setShow3DUnboxing(!show3DUnboxing)}
+          className="text-xs bg-white/90 backdrop-blur-sm border border-stone-300 text-stone-800 px-3 py-1.5 rounded-[4px] shadow-none hover:bg-stone-100 transition-all font-normal flex items-center gap-1.5 uppercase tracking-[0.05em]"
+        >
+          <Sparkles size={13} />
+          <span>{show3DUnboxing ? 'Skip 3D Card' : '✦ 3D Royal Card'}</span>
+        </button>
+
         <button
           onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
-          className="text-xs bg-white/80 backdrop-blur-sm border border-cream-300 text-cream-800 px-3 py-1.5 rounded-full shadow-sm hover:bg-white transition-all font-medium"
+          className="text-xs bg-white/90 backdrop-blur-sm border border-stone-300 text-stone-800 px-3 py-1.5 rounded-[4px] shadow-none hover:bg-stone-100 transition-all font-normal"
         >
           {t.languageToggle}
         </button>
       </div>
 
-      <main className="max-w-xl mx-auto px-4 mt-2 space-y-6">
+      <main className="max-w-xl mx-auto px-4 mt-3 space-y-6">
+        {/* Interactive 3D Royal Invitation Unboxing Experience */}
+        {show3DUnboxing && (
+          <Royal3DInvitationCard
+            coupleTitle={wedding.title}
+            householdName={household.displayName}
+            eventCount={events.length}
+            isOpened={!show3DUnboxing}
+            onOpenInvite={() => setShow3DUnboxing(false)}
+          />
+        )}
+
         {/* Hero Card */}
-        <div className="bg-white rounded-3xl shadow-lg border border-cream-200 overflow-hidden text-center">
+        <div className="bg-white rounded-[4px] shadow-none border border-stone-300 overflow-hidden text-center">
           {/* Cover Image if present */}
           {wedding.coverImageUrl && (
             <div className="w-full h-48 sm:h-56 overflow-hidden relative">

@@ -21,12 +21,16 @@ import {
   Trash2,
   AlertTriangle,
   Sparkles,
+  Layers,
+  Box,
 } from 'lucide-react';
+import { CurvedAtelierGalleryWebGL } from '../../components/3d/CurvedAtelierGalleryWebGL';
 
 export const WeddingsListPage: React.FC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
+  const [galleryView, setGalleryView] = useState<'3d' | 'grid'>('3d');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [weddingToDelete, setWeddingToDelete] = useState<any | null>(null);
   const [typedTitleConfirm, setTypedTitleConfirm] = useState('');
@@ -126,8 +130,16 @@ export const WeddingsListPage: React.FC = () => {
       <Header />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-10 pb-6 border-b border-[#666e72]/20">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-8 pb-6 border-b border-[#666e72]/20">
           <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[10px] uppercase tracking-[0.05em] px-2.5 py-0.5 rounded-[4px] bg-[#f2e9cf] text-[#484036] border border-[#cacab0] font-normal">
+                Atelier Workspace
+              </span>
+              <span className="text-xs text-[#666e72] font-normal">
+                Interactive 3D WebGL Engine Enabled
+              </span>
+            </div>
             <h1 className="text-3xl sm:text-4xl font-normal text-[#33302c] tracking-[-0.04em] leading-[1.03]">
               Wedding Projects
             </h1>
@@ -136,13 +148,41 @@ export const WeddingsListPage: React.FC = () => {
             </p>
           </div>
 
-          <button
-            onClick={() => setIsCreateOpen(true)}
-            className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-[4px] border border-[#484036] text-[#484036] hover:bg-[#484036] hover:text-[#faf5eb] font-normal text-xs uppercase tracking-[0.05em] transition-all shadow-none"
-          >
-            <Plus size={16} />
-            <span>New Wedding</span>
-          </button>
+          <div className="flex items-center gap-3">
+            {/* View Switcher: 3D Atelier vs Grid */}
+            <div className="flex items-center p-1 rounded-[4px] bg-[#ecece4] border border-[#666e72]/30 text-xs">
+              <button
+                onClick={() => setGalleryView('3d')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-[2px] transition-all uppercase tracking-[0.05em] font-normal ${
+                  galleryView === '3d'
+                    ? 'bg-[#484036] text-[#faf5eb] font-normal'
+                    : 'text-[#484036] hover:text-[#33302c]'
+                }`}
+              >
+                <Sparkles size={13} />
+                <span>3D Atelier</span>
+              </button>
+              <button
+                onClick={() => setGalleryView('grid')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-[2px] transition-all uppercase tracking-[0.05em] font-normal ${
+                  galleryView === 'grid'
+                    ? 'bg-[#484036] text-[#faf5eb] font-normal'
+                    : 'text-[#484036] hover:text-[#33302c]'
+                }`}
+              >
+                <Layers size={13} />
+                <span>Grid View</span>
+              </button>
+            </div>
+
+            <button
+              onClick={() => setIsCreateOpen(true)}
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-[4px] border border-[#484036] text-[#484036] hover:bg-[#484036] hover:text-[#faf5eb] font-normal text-xs uppercase tracking-[0.05em] transition-all shadow-none"
+            >
+              <Plus size={16} />
+              <span>New Wedding</span>
+            </button>
+          </div>
         </div>
 
         {isLoading ? (
@@ -157,6 +197,15 @@ export const WeddingsListPage: React.FC = () => {
         ) : error ? (
           <div className="p-7 rounded-[4px] bg-[#ecece4] border border-rose-300 text-rose-900 text-center text-sm">
             Failed to load weddings. Please refresh.
+          </div>
+        ) : galleryView === '3d' ? (
+          /* Mindblowing 3D WebGL Cylinder Gallery with tactile sound and physics */
+          <div className="space-y-4">
+            <CurvedAtelierGalleryWebGL
+              weddings={data?.weddings || []}
+              onSelectWedding={(w) => navigate(`/weddings/${w.id}`)}
+              onOpenCreate={() => setIsCreateOpen(true)}
+            />
           </div>
         ) : data?.weddings.length === 0 ? (
           <div className="bg-[#ecece4] rounded-[4px] border border-[#666e72]/30 p-12 text-center max-w-lg mx-auto shadow-none">
