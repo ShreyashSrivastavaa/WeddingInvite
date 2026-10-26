@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-maroon: 136 26 54;
+    --color-saffron: 232 146 5;
+    --color-cream: 250 248 245;
+  }
+
+  body {
+    min-height: 100vh;
+    color: #292524;
+    background-color: #faf8f5;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Accessible focus visible outlines */
+  :focus-visible {
+    outline: 2px solid #881a36;
+    outline-offset: 2px;
+  }
+}
+
+/* Print styles for catering summary exports */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
