@@ -6,6 +6,15 @@ import { z } from 'zod';
 dotenv.config({ path: path.resolve(process.cwd(), '../../.env') });
 dotenv.config();
 
+const vercelDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const defaultAppUrl = process.env.APP_URL || (vercelDomain ? `https://${vercelDomain}` : 'http://localhost:3000');
+const defaultCors = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  ...(vercelDomain ? [`https://${vercelDomain}`] : []),
+  ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
+].join(',');
+
 const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -14,9 +23,9 @@ const envSchema = z.object({
   SESSION_SECRET: z
     .string()
     .min(32, 'SESSION_SECRET must be at least 32 characters long for cryptographic security'),
-  APP_URL: z.string().default('http://localhost:3000'),
+  APP_URL: z.string().default(defaultAppUrl),
   TRUST_PROXY: z.coerce.number().default(1),
-  CORS_ORIGIN: z.string().default('http://localhost:5173,http://localhost:3000'),
+  CORS_ORIGIN: z.string().default(defaultCors),
 
   // Feature-flagged integrations
   EMAIL_PROVIDER_API_KEY: z.string().optional(),
