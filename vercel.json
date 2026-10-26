@@ -24,9 +24,17 @@
       }
     },
     {
+      "source": "/(.*\\.[^/]+)",
+      "destination": {
+        "service": "web",
+        "path": "/$1"
+      }
+    },
+    {
       "source": "/(.*)",
       "destination": {
-        "service": "web"
+        "service": "web",
+        "path": "/index.html"
       }
     }
   ]
