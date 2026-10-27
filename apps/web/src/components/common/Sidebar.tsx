@@ -7,6 +7,9 @@ import {
   Send,
   MessageSquareCode,
   ArrowLeft,
+  CheckCircle2,
+  Globe,
+  Store,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -48,6 +51,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
       to: `/weddings/${weddingId}/templates`,
       label: 'Message Templates',
       icon: MessageSquareCode,
+    },
+    {
+      to: `/checklist`,
+      label: 'Wedding Checklist',
+      icon: CheckCircle2,
+    },
+    {
+      to: `/wedding-websites`,
+      label: 'Website Studio',
+      icon: Globe,
+    },
+    {
+      to: `/vendors`,
+      label: 'Vendors Marketplace',
+      icon: Store,
     },
   ];
 
