@@ -62,11 +62,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Website Studio',
       icon: Globe,
     },
-    {
-      to: `/vendors`,
-      label: 'Vendors Marketplace',
-      icon: Store,
-    },
   ];
 
   return (

@@ -7,7 +7,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { LandingPage } from './pages/LandingPage';
 import { WeddingWebsitesPage } from './pages/websites/WeddingWebsitesPage';
 import { ChecklistPage } from './pages/checklist/ChecklistPage';
-import { VendorsPage } from './pages/vendors/VendorsPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
 import { WeddingsListPage } from './pages/organizer/WeddingsListPage';
@@ -59,7 +58,6 @@ export const App: React.FC = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/wedding-websites" element={<WeddingWebsitesPage />} />
             <Route path="/checklist" element={<ChecklistPage />} />
-            <Route path="/vendors" element={<VendorsPage />} />
 
             {/* Public Auth Routes */}
             <Route path="/login" element={<LoginPage />} />

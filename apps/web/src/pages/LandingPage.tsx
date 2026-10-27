@@ -292,7 +292,7 @@ export const LandingPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Free Website */}
           <div className="p-6 bg-white rounded-2xl border border-[#cacab0] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
             <div className="space-y-3">
@@ -355,28 +355,6 @@ export const LandingPage: React.FC = () => {
               className="mt-6 text-xs font-bold text-maroon-700 hover:text-maroon-900 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
             >
               <span>View Wedding Checklist</span>
-              <ChevronRight size={14} />
-            </Link>
-          </div>
-
-          {/* Card 4: Curated Vendors */}
-          <div className="p-6 bg-white rounded-2xl border border-[#cacab0] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Award size={24} />
-              </div>
-              <h3 className="font-serif text-xl font-bold text-stone-900">
-                Curated Vendors & Palaces
-              </h3>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Browse top reception havelis, beachfront resorts, editorial photographers, and Sangeet production teams with transparent pricing.
-              </p>
-            </div>
-            <Link
-              to="/vendors"
-              className="mt-6 text-xs font-bold text-maroon-700 hover:text-maroon-900 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-            >
-              <span>Explore Marketplace</span>
               <ChevronRight size={14} />
             </Link>
           </div>
@@ -810,7 +788,7 @@ export const LandingPage: React.FC = () => {
       {/* 8. COMPREHENSIVE THE KNOT-STYLE FOOTER */}
       <footer className="bg-[#33302c] text-[#faf5eb] pt-16 pb-12 border-t border-stone-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
             {/* Column 1: Planning Tools */}
             <div className="space-y-3">
               <h4 className="font-serif font-bold text-sm text-saffron-300 uppercase tracking-wider">
@@ -850,20 +828,6 @@ export const LandingPage: React.FC = () => {
                 <li><Link to="/weddings" className="hover:text-white transition-colors">Wax Seal Animations</Link></li>
                 <li><Link to="/weddings" className="hover:text-white transition-colors">Gold Foil Accents</Link></li>
                 <li><Link to="/weddings" className="hover:text-white transition-colors">Custom Message Templates</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Marketplace */}
-            <div className="space-y-3">
-              <h4 className="font-serif font-bold text-sm text-saffron-300 uppercase tracking-wider">
-                Vendors & Venues
-              </h4>
-              <ul className="space-y-2 text-xs text-stone-300">
-                <li><Link to="/vendors" className="hover:text-white transition-colors">Palace & Resort Venues</Link></li>
-                <li><Link to="/vendors" className="hover:text-white transition-colors">Wedding Photographers</Link></li>
-                <li><Link to="/vendors" className="hover:text-white transition-colors">Decor & Botanicals</Link></li>
-                <li><Link to="/vendors" className="hover:text-white transition-colors">Sangeet DJs & Music</Link></li>
-                <li><Link to="/vendors" className="hover:text-white transition-colors">Gourmet Catering</Link></li>
               </ul>
             </div>
 

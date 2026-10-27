@@ -43,7 +43,6 @@ export const Header: React.FC<HeaderProps> = ({
   const navLinks = [
     { label: 'Wedding Websites', to: '/wedding-websites' },
     { label: 'Checklist', to: '/checklist' },
-    { label: 'Vendors & Inspo', to: '/vendors' },
   ];
 
   return (
