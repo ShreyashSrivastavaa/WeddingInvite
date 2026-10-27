@@ -26,6 +26,8 @@ import {
   UserPlus,
   ArrowRight,
   ShieldAlert,
+  Sparkles,
+  Globe,
 } from 'lucide-react';
 import {
   BarChart,
@@ -196,6 +198,47 @@ export const DashboardPage: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-7">
+              {/* The Knot-Inspired Quick Planning Hub */}
+              <div className="bg-white p-5 rounded-xl border border-[#cacab0] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-maroon-700 text-saffron-300 flex items-center justify-center shrink-0 shadow-sm">
+                    <Sparkles size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-serif font-bold text-base text-[#33302c]">
+                      {wedding?.title || 'Your Wedding Celebration'}
+                    </h3>
+                    <p className="text-xs text-[#666e72]">
+                      All-in-one planning: Website live • WhatsApp RSVPs enabled • Checklist synced
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link
+                    to="/wedding-websites"
+                    className="px-3.5 py-2 rounded-lg bg-[#faf5eb] hover:bg-stone-200/60 border border-stone-300 text-[#484036] text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                  >
+                    <Globe size={13} className="text-maroon-700" />
+                    <span>Website Studio</span>
+                  </Link>
+                  <Link
+                    to="/checklist"
+                    className="px-3.5 py-2 rounded-lg bg-[#faf5eb] hover:bg-stone-200/60 border border-stone-300 text-[#484036] text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                  >
+                    <CheckCircle2 size={13} className="text-emerald-600" />
+                    <span>Checklist</span>
+                  </Link>
+                  <Link
+                    to={`/weddings/${weddingId}/messages?kind=INVITE`}
+                    className="px-3.5 py-2 rounded-lg bg-maroon-700 hover:bg-maroon-800 text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors"
+                  >
+                    <Send size={13} />
+                    <span>Send Invites</span>
+                  </Link>
+                </div>
+              </div>
+
               {/* Hero Attendance Summary Cards */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                 {/* Confirmed (Prominent) */}
