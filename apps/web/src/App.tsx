@@ -4,6 +4,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 // Pages
+import { LandingPage } from './pages/LandingPage';
+import { WeddingWebsitesPage } from './pages/websites/WeddingWebsitesPage';
+import { ChecklistPage } from './pages/checklist/ChecklistPage';
+import { VendorsPage } from './pages/vendors/VendorsPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
 import { WeddingsListPage } from './pages/organizer/WeddingsListPage';
@@ -51,6 +55,12 @@ export const App: React.FC = () => {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
+            {/* The Knot-Inspired Public Routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/wedding-websites" element={<WeddingWebsitesPage />} />
+            <Route path="/checklist" element={<ChecklistPage />} />
+            <Route path="/vendors" element={<VendorsPage />} />
+
             {/* Public Auth Routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -116,9 +126,8 @@ export const App: React.FC = () => {
               }
             />
 
-            {/* Default root redirects */}
-            <Route path="/" element={<Navigate to="/weddings" replace />} />
-            <Route path="*" element={<Navigate to="/weddings" replace />} />
+            {/* Fallback route */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
